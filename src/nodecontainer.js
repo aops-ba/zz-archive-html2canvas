@@ -274,10 +274,13 @@ function parseMatrix(match) {
             return parseFloat(s.trim());
         });
     } else if (match && match[1] === "matrix3d") {
-        var matrix3d = match[2].split(",").map(function(s) {
-          return parseFloat(s.trim());
-        });
-        return [matrix3d[0], matrix3d[1], matrix3d[4], matrix3d[5], matrix3d[12], matrix3d[13]];
+        // aops-ba uses complex matrix3d transforms that html2canvas fails on, so we
+        // disable them.
+        return;
+        // var matrix3d = match[2].split(",").map(function(s) {
+        //   return parseFloat(s.trim());
+        // });
+        // return [matrix3d[0], matrix3d[1], matrix3d[4], matrix3d[5], matrix3d[12], matrix3d[13]];
     }
 }
 
