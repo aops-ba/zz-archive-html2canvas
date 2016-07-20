@@ -63,7 +63,13 @@ CanvasRenderer.prototype.taints = function(imageContainer) {
 
 CanvasRenderer.prototype.drawImage = function(imageContainer, sx, sy, sw, sh, dx, dy, dw, dh) {
     if (!this.taints(imageContainer) || this.options.allowTaint) {
-        this.ctx.drawImage(imageContainer.image, sx, sy, sw, sh, dx, dy, dw, dh);
+        // In Chrome, drawing SVGs with source fields just fails miserably. So we ignore those
+        // arguments when drawing SVGs.
+        if (/svg$/.test(imageContainer.src)) {
+            this.ctx.drawImage(imageContainer.image, dx, dy, dw, dh);
+        } else {
+            this.ctx.drawImage(imageContainer.image, sx, sy, sw, sh, dx, dy, dw, dh);
+        }
     }
 };
 
