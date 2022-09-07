@@ -1,3 +1,5 @@
+# Fork archived 9/7/22
+
 html2canvas
 ===========
 
